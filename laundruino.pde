@@ -1,3 +1,4 @@
+/*
 #  The Laundruino
 #
 #  Copyright (C) 2011 Michael Clemens
@@ -14,11 +15,12 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <SPI.h>
 #include <Ethernet.h>
-#include <Udp.h>
 
+#define VERSION "1.03"
 
 byte mac[] = { 
   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
@@ -31,7 +33,7 @@ byte subnet[] = {
 const int LED = A2;
 long laundryIsDoneSince = -1;
 boolean LEDon;
-Server server(80);
+EthernetServer server(80);
 
 
 void setup()
@@ -46,7 +48,7 @@ void setup()
 void loop()
 {
   // listen for incoming clients
-  Client client = server.available();
+  EthernetClient client = server.available();
   
   // Signal from washing machine (LED) is unstable
   // so we have to watch it for some time
